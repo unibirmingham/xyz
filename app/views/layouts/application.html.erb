@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Xyz</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<header>
+			<%= image_tag 'logo.gif' %>
+		<div id="login">
+			Logged in as
+			<a id="user_name" href="#" >David Fish</a>|<a id="status" href="#">Log out</a>
+		</div>
+	</header>
+
+	<section id="navigator">
+		<%= yield :navigator %>
+		<%= link_to 'Tardinal Management', cardinal_placements_path %>
+	</section>
+	
+	<section id="main">
+		<%= yield %>
+	</section>
+	
+	<footer>
+	
+	</footer>
+
+</body>
+</html>

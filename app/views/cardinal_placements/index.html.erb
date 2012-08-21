@@ -1,0 +1,8 @@
+<h1>Cardinal Placements</h1>
+
+<table>
+	<tr><th>Name</th><th>Document URL</th></tr>
+	<% @placements.each do |placement| %>
+		<tr><td><%= placement.title %></td><td><%= placement.url %></td></tr>
+	<% end %>
+</table>
