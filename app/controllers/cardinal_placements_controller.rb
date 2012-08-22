@@ -2,7 +2,10 @@ class CardinalPlacementsController < ApplicationController
 
 	def index
 		@placements = CardinalPlacement.all
-		true
+	end
+
+	def edit
+		@placement = CardinalPlacement.find(params[:id])
 	end
 
 

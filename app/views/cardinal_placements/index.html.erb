@@ -1,8 +1,22 @@
 <h1>Cardinal Placements</h1>
 
 <table>
-	<tr><th>Name</th><th>Document URL</th></tr>
-	<% @placements.each do |placement| %>
-		<tr><td><%= placement.title %></td><td><%= placement.url %></td></tr>
-	<% end %>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Document URL</th>
+			<th class="edit">Edit</th>
+			<th class="delete">Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @placements.each do |placement| %>
+			<tr>
+				<td><%= placement.title %></td>
+				<td><%= placement.qmsvalue1 %></td>
+				<td class="edit"><%= link_to 'edit', edit_cardinal_placement_path(placement.drereference) %></td>
+				<td class="delete"><%= link_to 'delete', cardinal_placement_path(placement.drereference), :method => 'delete', :confirm => 'Are you absolutely, positively sure you want to delete?' %></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>

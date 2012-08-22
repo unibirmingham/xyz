@@ -1,0 +1,5 @@
+<h2>Edit <%= @placement.title %><h2>
+
+<%= form_tag cardinal_placement_path(@placement) do %>
+		<%= label_tag 'Title' %><%= text_field_tag 'title', @placement.title %>
+<% end %>

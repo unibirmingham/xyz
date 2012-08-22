@@ -1,0 +1,27 @@
+// Place all the styles related to the CardinalPlacements controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+table{
+	width:100%;
+	table-layout:fixed;
+	border-collapse:collapse;
+}
+
+
+td,th {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	padding: 5px 5px;
+}
+
+th {
+	text-align:left;
+	border-bottom: 2px solid gray;
+}
+
+td.edit, th.edit, td.delete, th.delete{
+	width:100px;
+	text-align:center;
+}
