@@ -31,4 +31,49 @@ header #login{
 	width:83%;
 }
 
+label{
+	margin: 0 10px 0 0;
+	clear:both;
+	float:left;
+	text-align:right;
+	width:20%;
+	padding: 10px 0;
+}
 
+input[type="text"], input[type="number"]{
+	float:left;
+	width:50%;
+	padding: 10px;
+	font-size: 16px;
+}
+
+fieldset {
+	float: left;
+	clear: both;
+	border:none;
+	margin: 0 0 0 6.3%;
+}
+
+fieldset legend{
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+fieldset label{
+	margin:0;
+	width:initial;
+	clear:none;
+	padding:0 15px 0 0;
+	font-weight:normal;
+	font-size: 16px;
+}
+
+fieldset input[type="radio"]{
+	float:left;
+	vertical-align:middle;
+}
+
+fieldset div.radios {
+	float: left;
+	padding: 6px;
+}

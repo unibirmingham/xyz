@@ -4,42 +4,86 @@ describe CardinalPlacement do
 
 	describe "all"  do
 		before :each do
-			response = double('response')
-			Net::HTTP.should_receive(:get_response).and_return(response)
-			response.should_receive(:body).and_return(get_cardinal_placement_list_xml)
 		end
 
 		it "gets all the cardinal placements" do
+			@response = double('response').as_null_object
+			Net::HTTP.stub(:get_response).and_return(@response)
+			@response.stub(:body).and_return(cardinal_placement_list_xml)
+
 			placements = CardinalPlacement.all
 			placements.count.should eql 9
 		end
 
-		it "gets the all attributes from the xml" do
-			placements = CardinalPlacement.all
-			first = placements[0]
-			first.title.should eql "tardinal_placement"
-			first.reference.should eql "1345464832-AUTN-GENERATED-REF-862-74078-15920"
-			first.weight.should eql "96.00"
-			first.qmstype.should eql "1"
-			first.alwaysactive.should eql "TRUE"
-			first.qmsvalue1.should eql "https://intranet.birmingham.ac.uk/it/teams/applications/web-services/staff/tara-lamplough.aspx"
+	end
+
+	describe "query_idol_with" do
+		before :each do
+			@response = double('response').as_null_object
+			Net::HTTP.stub(:get_response).and_return(@response)
+		end
+
+		it "gets the xml data from idol" do
+			@response.stub(:body).and_return(cardinal_placement_list_xml)
+			Net::HTTP.should_receive(:get_response).and_return(@response)
+			CardinalPlacement.query_idol_with("http://madeupurl.com")
+		end
+
+		it "returns the data as a hash" do
+			@response.stub(:body).and_return(hit)
+			hashed_values = CardinalPlacement.query_idol_with("http://madeupurl.com")
+			hit_hash = hashed_values['responsedata'][0]['hit'][0]
+			hit_hash['reference'][0].should eql "1345464832-AUTN-GENERATED-REF-862-74078-15920"
+			hit_hash['id'][0].should eql "862"
+			hit_hash['section'][0].should eql "0"
+			hit_hash['weight'][0].should eql "96.00"
+		end
+
+	end
+
+	describe "new" do
+		it "makes all xml nodes attributes of the class" do
+			placement = CardinalPlacement.new(attributes)
+			placement.title.should eql "tardinal_placement"
+			placement.reference.should eql "1345464832-AUTN-GENERATED-REF-862-74078-15920"
+			placement.weight.should eql "96.00"
+			placement.qmstype.should eql "1"
+			placement.alwaysactive.should eql "TRUE"
+			placement.qmsvalue1.should eql "https://intranet.birmingham.ac.uk/it/teams/applications/web-services/staff/tara-lamplough.aspx"
 		end
 	end
-	it "adds all the attributes as accessors" do
-		placement = CardinalPlacement.new(get_hit)
-		placement.reference.should eql 12345
-		placement.id.should eql 848
-		placement.section.should eql 0
-		placement.weight.should eql 96.00
+
+	def attributes
+		{"reference"=>["1345464832-AUTN-GENERATED-REF-862-74078-15920"],
+			"id"=>["862"],
+			"section"=>["0"],
+			"weight"=>["96.00"],
+			"database"=>["Activated"],
+			"title"=>["tardinal_placement"],
+			"content"=>
+		{"DOCUMENT"=>
+			[{"DRETITLE"=>["tardinal_placement"],
+				"QMSTYPE"=>["1"],
+				"ALWAYSACTIVE"=>["TRUE"],
+				"QMSVALUE1"=>
+			["https://intranet.birmingham.ac.uk/it/teams/applications/web-services/staff/tara-lamplough.aspx"],
+				"QMSVALUE2"=>["3"],
+				"QMSAGENTBOOL"=>["tara AND needs AND to AND know AND everything"],
+				"DRECONTENT"=>["tara needs to know everything\n\n\t\t"],
+				"DREREFERENCE"=>
+			["1345464832-AUTN-GENERATED-REF-862-74078-15920"]}]}}
 	end
 
-	def get_hit
-		{reference:12345, id:848, section:0, weight:96.00}
+	def hit
+		"<?xml version='1.0' encoding='UTF-8' ?><autnresponse xmlns:autn='http://schemas.autonomy.com/aci/'><action>QUERY</action><response>SUCCESS</response><responsedata>
+
+		<autn:numhits>1</autn:numhits><autn:hit><autn:reference>1345464832-AUTN-GENERATED-REF-862-74078-15920</autn:reference><autn:id>862</autn:id><autn:section>0</autn:section><autn:weight>96.00</autn:weight><autn:database>Activated</autn:database><autn:title>tardinal_placement</autn:title><autn:content><DOCUMENT><DRETITLE>tardinal_placement</DRETITLE><QMSTYPE>1</QMSTYPE><ALWAYSACTIVE>TRUE</ALWAYSACTIVE><QMSVALUE1>https://intranet.birmingham.ac.uk/it/teams/applications/web-services/staff/tara-lamplough.aspx</QMSVALUE1><QMSVALUE2>3</QMSVALUE2><QMSAGENTBOOL>tara AND needs AND to AND know AND everything</QMSAGENTBOOL><DRECONTENT>tara needs to know everything
+
+		</DRECONTENT><DREREFERENCE>1345464832-AUTN-GENERATED-REF-862-74078-15920</DREREFERENCE></DOCUMENT></autn:content></autn:hit></responsedata></autnresponse>"
 	end
 
-	def	get_cardinal_placement_list_xml
-		return "
-		<?xml version='1.0' encoding='UTF-8' ?><autnresponse xmlns:autn='http://schemas.autonomy.com/aci/'><action>QUERY</action><response>SUCCESS</response><responsedata>
+	def	cardinal_placement_list_xml
+		"<?xml version='1.0' encoding='UTF-8' ?><autnresponse xmlns:autn='http://schemas.autonomy.com/aci/'><action>QUERY</action><response>SUCCESS</response><responsedata>
 		<autn:numhits>9</autn:numhits><autn:hit><autn:reference>1345464832-AUTN-GENERATED-REF-862-74078-15920</autn:reference><autn:id>862</autn:id><autn:section>0</autn:section><autn:weight>96.00</autn:weight><autn:database>Activated</autn:database><autn:title>tardinal_placement</autn:title><autn:content><DOCUMENT><DRETITLE>tardinal_placement</DRETITLE><QMSTYPE>1</QMSTYPE><ALWAYSACTIVE>TRUE</ALWAYSACTIVE><QMSVALUE1>https://intranet.birmingham.ac.uk/it/teams/applications/web-services/staff/tara-lamplough.aspx</QMSVALUE1><QMSVALUE2>3</QMSVALUE2><QMSAGENTBOOL>tara AND needs AND to AND know AND everything</QMSAGENTBOOL><DRECONTENT>tara needs to know everything
 
 		</DRECONTENT><DREREFERENCE>1345464832-AUTN-GENERATED-REF-862-74078-15920</DREREFERENCE></DOCUMENT></autn:content></autn:hit><autn:hit><autn:reference>593877363801070230</autn:reference><autn:id>848</autn:id><autn:section>0</autn:section><autn:weight>96.00</autn:weight><autn:database>Activated</autn:database><autn:title>ZGF2ZSBzbWl0aGh0dHA6Ly93d3cuYmlybWluZ2hhbS5hYy51ay9zdGFmZi9wcm9maWxlcy9jaGVtaWNhbC1lbmdpbmVlcmluZy9zaW1tb25zLW1hcmsuYXNweA==</autn:title><autn:content><DOCUMENT><DREREFERENCE>593877363801070230</DREREFERENCE><DRETITLE>ZGF2ZSBzbWl0aGh0dHA6Ly93d3cuYmlybWluZ2hhbS5hYy51ay9zdGFmZi9wcm9maWxlcy9jaGVtaWNhbC1lbmdpbmVlcmluZy9zaW1tb25zLW1hcmsuYXNweA==</DRETITLE><DREDBNAME>ACTIVATED</DREDBNAME><BOOLEANRESTRICTION>dave smith BAKA BUBBL PARAU PLANAR SIMMON HANRATTI STITT CFD FRYER WONG HYSTERESI ANNULAR EXP MARSTON PLIF DECENT BBSRC JET PEPT MULTIPHAS UDDIN VESSEL TSOLIGKA BIOFILM BARIGOU BIOCATALYST FOUL PHY FLUORESCENT UEA IFSET PIV AZZOPARDI GRANULAR MATTHEI UNILEV GAMBL AERAT AGIT BIOTRANSFORM DROPLET PROCTER DROP FLUID CURTAIN CES BRIDSON MEHAUDEN REACTOR JFOODENG</BOOLEANRESTRICTION><THRESHOLD>20</THRESHOLD><DRECONTENT>DAVE SMITH BAKA BUBBL PARAU PLANAR SIMMON HANRATTI STITT CFD FRYER WONG HYSTERESI ANNULAR EXP MARSTON PLIF DECENT BBSRC JET PEPT MULTIPHAS UDDIN VESSEL TSOLIGKA BIOFILM BARIGOU BIOCATALYST FOUL PHY FLUORESCENT UEA IFSET PIV AZZOPARDI GRANULAR MATTHEI UNILEV GAMBL AERAT AGIT BIOTRANSFORM DROPLET PROCTER DROP FLUID CURTAIN CES BRIDSON MEHAUDEN REACTOR JFOODENG
