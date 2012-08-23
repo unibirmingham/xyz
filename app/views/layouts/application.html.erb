@@ -8,22 +8,30 @@
 	</head>
 	<body>
 		<header>
-		<%= image_tag 'logo.gif' %>
-		<div id="login">
-			Logged in as
-			<a id="user_name" href="#" >David Fish</a>|<a id="status" href="#">Log out</a>
-		</div>
+			<section>
+				<%= image_tag 'logo.gif' %>
+				<div id="login">
+					Logged in as
+					<a id="user_name" href="#" >David Fish</a>|<a id="status" href="#">Log out</a>
+				</div>
+			</section>
 		</header>
 		<section id="main">
-			<section id="navigator">
-				<%= yield :navigator %>
-				<%= link_to 'Cardinal Placements', cardinal_placements_path %>
-			</section>
+		<nav id="main_nav">
+		<ul>
+			<li class="selected">
+			<%= link_to 'Cardinal Placements', cardinal_placements_path %>
+			</li>
+		</ul>
+		</nav>
+		<section id="context_menu">
+		<%= yield :context_menu%>
+		</section>
 
-			<section id="work_panel">
-				<%= yield %>
-			</section>
-			</section>
+		<section id="work_panel">
+		<%= yield %>
+		</section>
+		</section>
 		<footer>
 
 		</footer>

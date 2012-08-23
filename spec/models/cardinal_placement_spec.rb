@@ -53,6 +53,16 @@ describe CardinalPlacement do
 		end
 	end
 
+	describe "destroy" do
+		it "sends the delete doc command to IDOL" do
+			@response = double('response')
+			@response.stub(:code).and_return(200)
+			Net::HTTP.should_receive(:get_response).with(URI.parse("http://147.188.128.215:10151/DREDELETEDOC?docs=12345")).and_return(@response)
+
+			CardinalPlacement.destroy(12345)			
+		end
+	end
+
 	def attributes
 		{"reference"=>["1345464832-AUTN-GENERATED-REF-862-74078-15920"],
 			"id"=>["862"],

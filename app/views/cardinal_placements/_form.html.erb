@@ -1,0 +1,19 @@
+<%= form_tag find_cardinal_placement_path(@placement), :method => 'PUT' do %>
+	<%= label_tag 'title', 'Title'%><%= text_field_tag 'title', @placement.title %>
+	<%= label_tag 'url', 'URL'%><%= text_field_tag 'url', @placement.qmsvalue1 %>
+	<%= label_tag 'position', 'Position' %><%= number_field_tag 'position', @placement.qmsvalue2 %>
+	<%= label_tag 'keywords', 'Keywords' %><%= text_field_tag 'keywords', @placement.qmsagentbool %>
+
+	<fieldset>
+		<legend>Always Active</legend>
+		<div class="radios">
+			<%= radio_button_tag 'always_active', 'yes', to_boolean(@placement.alwaysactive)  %><%= label_tag 'always_active_yes', 'Yes' %>
+			<%= radio_button_tag 'always_active', 'no', !to_boolean(@placement.alwaysactive)  %><%= label_tag 'always_active_no', 'No' %>
+		</div>
+	</fieldset>
+
+	<div class="buttons">
+		<%= submit_tag 'Reset', :type => 'reset' %>
+		<%= submit_tag 'Save' %>
+	</div>
+<% end %>

@@ -8,8 +8,8 @@ describe 'cardinal placements' do
 			@placement = double("placement")
 			@placement.stub(:title).and_return("2012 Prospectus")
 			@placement.stub(:qmsvalue1).and_return("http://www.birmingham.ac.uk/first_document.aspx")
-			@placement.stub(:drereference).and_return("12345")
-			CardinalPlacement.should_receive(:all).and_return([@placement]) 
+			@placement.stub(:id).and_return("12345")
+			CardinalPlacement.should_receive(:all).any_number_of_times().and_return([@placement])
 		end
 
 		it 'displays all the cardinal placements data' do
@@ -19,6 +19,14 @@ describe 'cardinal placements' do
 				page.should have_content "http://www.birmingham.ac.uk/first_document.aspx"
 			end
 		end
+
+		it "destroys the cardinal_placement in IDOL" do
+			CardinalPlacement.should_receive(:destroy).with("12345")
+			visit cardinal_placements_path
+			click_link 'delete'
+			current_path.should eql cardinal_placements_path
+		end
+
 	end
 
 	describe 'GET /cardinal_placements/1/edit' do
@@ -35,11 +43,12 @@ describe 'cardinal placements' do
 			visit edit_cardinal_placement_path(@placement)
 			
 			within 'form' do
-				page.should have_field("Title")
-				page.should have_field("URL")
+				page.should have_field("Title", :with => "2012 Prospectus")
+				page.should have_field("URL", :with => "http://www.birmingham.ac.uk/first_document.aspx")
 				page.should have_checked_field("always_active_yes")
 				page.should have_unchecked_field("always_active_no")
-				page.should have_field("Position", :type => 'number')
+				page.should have_field("Position", :type => 'number', :with => "3")
+				page.should have_field("Keywords", :with => "dave AND the AND fish")
 			end
 		end
 	end

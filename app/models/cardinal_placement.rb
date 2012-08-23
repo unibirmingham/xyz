@@ -1,8 +1,9 @@
 class CardinalPlacement
 	require 'net/http'
 	require 'xmlsimple'
+	attr_accessor :id, :title, :qmsvalue1, :qmsvalue2, :alwaysactive, :qmsagentbool
 
-	def initialize(attributes={})
+	def initialize(attributes={:alwaysactive => 'true'})
 		@attributes = attributes
 		add_attributes(attributes)
 	end
@@ -17,10 +18,16 @@ class CardinalPlacement
 		cardinals
 	end
 
-	def self.find(drereference)
-		url = "http://147.188.128.215:10150/action=Query&databasematch=activated&print=all&maxresults=5000&fieldtext=MATCH{1}:QMSTYPE+AND+MATCH{#{drereference}}:drereference&Text=*"
+	def self.find(id)
+		url = "http://147.188.128.215:10150/action=Query&databasematch=activated&print=all&maxresults=5000&fieldtext=MATCH{1}:QMSTYPE&MATCHID=#{id}"
 		data = query_idol_with(url)
 		CardinalPlacement.new(data['responsedata'][0]['hit'][0])
+	end
+
+	def self.destroy(id)
+		url = "http://147.188.128.215:10151/DREDELETEDOC?docs=#{id}"
+		response = Net::HTTP.get_response(URI.parse(url))
+		response.code == "200"
 	end
 
 	def self.query_idol_with(url)

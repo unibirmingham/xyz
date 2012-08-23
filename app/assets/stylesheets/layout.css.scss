@@ -1,25 +1,32 @@
+$primary-color:#964444;
+
 body,html{
 	height:100%;
 	font-family:sans-serif;
+	margin:0;
 }
 
 header{
 	float:left;
 	width:100%;
-	margin:0 0 10px 0;
 }
 
 header #login{
 	float:right;
 }
 
-#navigator {
+header section{
+	padding:20px;
+}
+
+#context_menu {
 	width:15%;
 	float:left;
 	height:100%;
 	background-color:whitesmoke;
 	padding:10px 0 10px 15px;
 	margin:0 10px 0 0;
+	font-size:14px;
 }
 
 #main {
@@ -37,7 +44,9 @@ label{
 	float:left;
 	text-align:right;
 	width:20%;
-	padding: 10px 0;
+	padding: 13px 0;
+	font-size: 18px;
+	font-weight:bold;
 }
 
 input[type="text"], input[type="number"]{
@@ -51,12 +60,14 @@ fieldset {
 	float: left;
 	clear: both;
 	border:none;
-	margin: 0 0 0 6.3%;
+	margin: 0 0 0 9.2%;
 }
 
 fieldset legend{
 	float: left;
 	margin: 0 10px 0 0;
+	font-weight:bold;
+	font-size:18px;
 }
 
 fieldset label{
@@ -64,7 +75,6 @@ fieldset label{
 	width:initial;
 	clear:none;
 	padding:0 15px 0 0;
-	font-weight:normal;
 	font-size: 16px;
 }
 
@@ -75,5 +85,61 @@ fieldset input[type="radio"]{
 
 fieldset div.radios {
 	float: left;
-	padding: 6px;
+	padding: 2px;
+}
+
+form div.buttons {
+	float: left;
+	clear: both;
+	text-align: right;
+	width: 73%;
+}
+
+
+form div.buttons input {
+	padding: 10px 30px;
+	font-size:16px;
+}
+
+nav#main_nav
+{
+	background-color: $primary-color;
+	height: 36px;
+	float: left;
+	width: 100%;
+}
+
+nav#main_nav ul
+{
+	padding: 5px 0 0 0;
+	margin: 0;
+}
+
+nav#main_nav li
+{
+	display: block;
+	float: left;
+	margin-left: 5px;
+	background-color: #E6E6E6;
+	border-radius: 5px 5px 0 0;
+	border: solid 1px #E6E6E6;
+}
+
+nav#main_nav li.selected
+{
+	background-color: white;
+	border-top: solid 1px darkGray;
+	border-left: solid 1px darkGray;
+	border-right: solid 1px darkGray;
+	border-bottom: 1px solid white;
+	adding-bottom: 1px;
+}
+
+nav#main_nav li a
+{
+	padding: 6px 15px;
+	float: left;
+	color: #212121;
+	text-decoration: none;
+	cursor: inherit;
 }
