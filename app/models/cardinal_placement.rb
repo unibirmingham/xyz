@@ -24,7 +24,7 @@ class CardinalPlacement
 		http = Net::HTTP.new("147.188.128.215", 10151)
 		http.set_debug_output $stdout
 		response = http.post('/DREADDDATA?&DREDBNAME=Activated', post_data, {'Content-Type' => 'text/plain'})
-
+		response.code == 200
 	end
 	
 	def self.all
