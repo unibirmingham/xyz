@@ -1,5 +1,5 @@
-<%= content_for :context_menu do %>
-	<%= link_to 'View All Cardinal Placements', cardinal_placements_path %>
-	<%= link_to 'Create New Cardinal Placement', new_cardinal_placement_path %>
+<%= content_for :context_nav do %>
+	<li><%= link_to 'View All Cardinal Placements', cardinal_placements_path %></li>
+	<li><%= link_to 'Create New Cardinal Placement', new_cardinal_placement_path %></li>
 <% end %>
 <%= render :template => 'layouts/application' %>

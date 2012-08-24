@@ -19,7 +19,7 @@ header section{
 	padding:20px;
 }
 
-#context_menu {
+#context_nav {
 	width:15%;
 	float:left;
 	height:100%;
@@ -27,6 +27,16 @@ header section{
 	padding:10px 0 10px 15px;
 	margin:0 10px 0 0;
 	font-size:14px;
+}
+
+#context_nav ul{
+	margin:0;
+	padding:0;
+}
+
+#context_nav li{
+	list-style:none;
+	margin: 10px 0;
 }
 
 #main {
@@ -54,6 +64,7 @@ input[type="text"], input[type="number"]{
 	width:50%;
 	padding: 10px;
 	font-size: 16px;
+	border-radius:5px;
 }
 
 fieldset {

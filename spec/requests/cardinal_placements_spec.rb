@@ -30,16 +30,19 @@ describe 'cardinal placements' do
 	end
 
 	describe 'GET /cardinal_placements/1/edit' do
-		it "shows the form with the current info pre-populated" do
+
+		before :each do
 			@placement = double 'placement'
 			@placement.stub(:title).and_return("2012 Prospectus")
 			@placement.stub(:qmsvalue1).and_return("http://www.birmingham.ac.uk/first_document.aspx")
 			@placement.stub(:id).and_return("12345")
 			@placement.stub(:qmsvalue2).and_return("3")
 			@placement.stub(:alwaysactive).and_return("TRUE")
-			@placement.stub(:qmsagentbool).and_return("dave AND the AND fish")
+			@placement.stub(:qmsagentbool).and_return("dave AND the AND fish")	
 			CardinalPlacement.should_receive(:find).and_return(@placement)
+		end
 
+		it "shows the form with the current info pre-populated" do
 			visit edit_cardinal_placement_path(@placement)
 			
 			within 'form' do
@@ -49,6 +52,17 @@ describe 'cardinal placements' do
 				page.should have_unchecked_field("always_active_no")
 				page.should have_field("Position", :type => 'number', :with => "3")
 				page.should have_field("Keywords", :with => "dave AND the AND fish")
+			end
+		end
+
+		it "updates the placement" do
+			visit edit_cardinal_placement_path(@placement.id)
+
+			fill_in :title, :with => "2013 Prospectus"
+
+			click_button 'Save'
+			within 'table' do
+				page.should have_content("2013 Prospectus")
 			end
 		end
 	end

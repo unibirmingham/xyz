@@ -7,6 +7,25 @@ class CardinalPlacement
 		@attributes = attributes
 		add_attributes(attributes)
 	end
+
+	def update
+		url = "http://147.188.128.215:10151/DREADDDATA?&DREDBNAME=Activated"
+		post_data = "#DREREFERENCE #{drereference}
+#DRETITLE #{dretitle}
+#DREFIELD QMSTYPE=\"1\"
+#DREFIELD ALWAYSACTIVE=\"TRUE\"
+#DREFIELD QMSVALUE1=\"#{qmsvalue1}\"
+#DREFIELD QMSVALUE2=\"#{qmsvalue2}\"
+#DREFIELD QMSAGENTBOOL=\"#{qmsagentbool}\"
+#DRECONTENT 
+#{drecontent.gsub(/[AND|OR]/, '')} 
+#DREENDDOC
+#DREENDDATA"
+		http = Net::HTTP.new("147.188.128.215", 10151)
+		http.set_debug_output $stdout
+		response = http.post('/DREADDDATA?&DREDBNAME=Activated', post_data, {'Content-Type' => 'text/plain'})
+
+	end
 	
 	def self.all
 		url = 'http://147.188.128.215:10150/action=Query&databasematch=activated&print=all&maxresults=5000&fieldtext=MATCH{1}:QMSTYPE&Text=*'

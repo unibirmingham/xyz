@@ -5,7 +5,7 @@ module ApplicationHelper
 	end
 	
 	def find_cardinal_placement_path(placement)
-		return	cardinal_placement_path(placement) if !placement.id.nil?
+		return	cardinal_placement_path(placement.id) unless placement.id.nil?
 		new_cardinal_placement_path
 	end
 end
