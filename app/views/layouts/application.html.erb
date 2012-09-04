@@ -22,6 +22,9 @@
 			<li class="selected">
 			<%= link_to 'Cardinal Placements', cardinal_placements_path %>
 			</li>
+			<li>
+			<%= link_to 'Promotions', cardinal_placements_path %>
+			</li>
 		</ul>
 		</nav>
 		<section id="context_nav">
@@ -31,6 +34,9 @@
 		</section>
 
 		<section id="work_panel">
+		<% flash.each do |name, msg| -%>
+			<%= content_tag :div, msg, :id => "flash_#{name}", :class => "flash" %>
+		<% end -%>
 		<%= yield %>
 		</section>
 		</section>

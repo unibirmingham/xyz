@@ -1,0 +1,10 @@
+#DRETITLE <%=@dretitle%>
+#DREFIELD QMSTYPE="1"
+#DREFIELD ALWAYSACTIVE="TRUE"
+#DREFIELD QMSVALUE1="<%=@qmsvalue1%>"
+#DREFIELD QMSVALUE2="<%=@qmsvalue2%>"
+#DREFIELD QMSAGENTBOOL="<%=@qmsagentbool%>"
+#DRECONTENT 
+<%=@qmsagentbool.gsub(/[AND|OR]/, '')%> 
+#DREENDDOC
+#DREENDDATA

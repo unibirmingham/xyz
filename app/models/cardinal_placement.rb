@@ -1,30 +1,21 @@
 class CardinalPlacement
 	require 'net/http'
 	require 'xmlsimple'
-	attr_accessor :id, :title, :qmsvalue1, :qmsvalue2, :alwaysactive, :qmsagentbool
+	attr_accessor :id, :dretitle, :qmsvalue1, :qmsvalue2, :alwaysactive, :qmsagentbool
 
 	def initialize(attributes={:alwaysactive => 'true'})
 		@attributes = attributes
 		add_attributes(attributes)
 	end
-
+	
+	def save	
+		filename = 'app/idol_requests/cardinal_placements/save.idx.erb'
+		send_post(filename, '/DREADDDATA?&DREDBNAME=Activated')
+	end
+	
 	def update
-		url = "http://147.188.128.215:10151/DREADDDATA?&DREDBNAME=Activated"
-		post_data = "#DREREFERENCE #{drereference}
-#DRETITLE #{dretitle}
-#DREFIELD QMSTYPE=\"1\"
-#DREFIELD ALWAYSACTIVE=\"TRUE\"
-#DREFIELD QMSVALUE1=\"#{qmsvalue1}\"
-#DREFIELD QMSVALUE2=\"#{qmsvalue2}\"
-#DREFIELD QMSAGENTBOOL=\"#{qmsagentbool}\"
-#DRECONTENT 
-#{drecontent.gsub(/[AND|OR]/, '')} 
-#DREENDDOC
-#DREENDDATA"
-		http = Net::HTTP.new("147.188.128.215", 10151)
-		http.set_debug_output $stdout
-		response = http.post('/DREADDDATA?&DREDBNAME=Activated', post_data, {'Content-Type' => 'text/plain'})
-		response.code == 200
+		filename = 'app/idol_requests/cardinal_placements/update.idx.erb'
+		send_post(filename, '/DREREPLACE?&DATABASEMATCH=Activated')
 	end
 	
 	def self.all
@@ -49,13 +40,6 @@ class CardinalPlacement
 		response.code == "200"
 	end
 
-	def self.query_idol_with(url)
-		url = URI.encode(url)
-		response = Net::HTTP.get_response(URI.parse(url))
-		xml_data = response.body
-		data = XmlSimple.xml_in(xml_data)	
-	end
-
 	private
 
 	def add_attributes(attributes)
@@ -75,5 +59,22 @@ class CardinalPlacement
 		self.class_eval{attr_accessor key} unless respond_to?("#{key}=")
 		val = val[0] if val.is_a?(Array) && val.count == 1
 		send("#{key}=", val) 
+	end
+
+	def send_post(erb_file, path)
+		filename = erb_file 
+		erb = ERB.new(File.read(filename))
+		erb.filename = filename
+		post_data = erb.result(binding) 
+		http = Net::HTTP.new("147.188.128.215", 10151)
+		response = http.post(path, post_data, {'Content-Type' => 'text/plain'})
+		response.code == "200"
+	end
+	
+	def self.query_idol_with(url)
+		url = URI.encode(url)
+		response = Net::HTTP.get_response(URI.parse(url))
+		xml_data = response.body
+		data = XmlSimple.xml_in(xml_data)	
 	end
 end

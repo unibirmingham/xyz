@@ -1,4 +1,4 @@
-$primary-color:#964444;
+$primary-color:#CF5829;
 
 body,html{
 	height:100%;
@@ -115,14 +115,14 @@ form div.buttons input {
 nav#main_nav
 {
 	background-color: $primary-color;
-	height: 36px;
+	height: 45px;
 	float: left;
 	width: 100%;
 }
 
 nav#main_nav ul
 {
-	padding: 5px 0 0 0;
+	padding: 12px 0 0 0;
 	margin: 0;
 }
 
@@ -153,4 +153,21 @@ nav#main_nav li a
 	color: #212121;
 	text-decoration: none;
 	cursor: inherit;
+}
+
+.flash {
+	text-align: center;
+	margin:5px 0;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+#flash_info{
+	background-color: #9ED184;
+	border: 1px solid #528F33;
+}
+
+#flash_error{
+	background-color: #E37171;
+	border: 1px solid #CC0000;
 }

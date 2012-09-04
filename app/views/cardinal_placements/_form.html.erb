@@ -1,7 +1,7 @@
-<%= form_tag find_cardinal_placement_path(@placement), :method => 'PUT' do %>
-	<%= label_tag 'title', 'Title'%><%= text_field_tag 'title', @placement.title %>
+<%= form_tag_for(@placement) do %>
+	<%= label_tag 'title', 'Title'%><%= text_field_tag 'title', @placement.dretitle %>
 	<%= label_tag 'url', 'URL'%><%= text_field_tag 'url', @placement.qmsvalue1 %>
-	<%= label_tag 'position', 'Position' %><%= number_field_tag 'position', @placement.qmsvalue2 %>
+	<%= label_tag 'position', 'Position' %><%= number_field_tag 'position', @placement.qmsvalue2, :min => 1 %>
 	<%= label_tag 'keywords', 'Keywords' %><%= text_field_tag 'keywords', @placement.qmsagentbool %>
 
 	<fieldset>

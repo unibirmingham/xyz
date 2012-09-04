@@ -9,7 +9,7 @@ describe 'cardinal placements' do
 			@placement.stub(:title).and_return("2012 Prospectus")
 			@placement.stub(:qmsvalue1).and_return("http://www.birmingham.ac.uk/first_document.aspx")
 			@placement.stub(:id).and_return("12345")
-			CardinalPlacement.should_receive(:all).any_number_of_times().and_return([@placement])
+			CardinalPlacement.should_receive(:all).any_number_of_times.and_return([@placement])
 		end
 
 		it 'displays all the cardinal placements data' do
@@ -33,13 +33,13 @@ describe 'cardinal placements' do
 
 		before :each do
 			@placement = double 'placement'
-			@placement.stub(:title).and_return("2012 Prospectus")
+			@placement.stub(:dretitle).and_return("2012 Prospectus")
 			@placement.stub(:qmsvalue1).and_return("http://www.birmingham.ac.uk/first_document.aspx")
 			@placement.stub(:id).and_return("12345")
 			@placement.stub(:qmsvalue2).and_return("3")
-			@placement.stub(:alwaysactive).and_return("TRUE")
+			@placement.stub(:alwaysactive).and_return("true")
 			@placement.stub(:qmsagentbool).and_return("dave AND the AND fish")	
-			CardinalPlacement.should_receive(:find).and_return(@placement)
+			CardinalPlacement.should_receive(:find).any_number_of_times.and_return(@placement)
 		end
 
 		it "shows the form with the current info pre-populated" do
@@ -58,12 +58,22 @@ describe 'cardinal placements' do
 		it "updates the placement" do
 			visit edit_cardinal_placement_path(@placement.id)
 
-			fill_in :title, :with => "2013 Prospectus"
+			fill_in 'Title', :with => "2013 Prospectus"
+			fill_in 'URL', :with => "http://www.birmingham.ac.uk/document.aspx"
+			fill_in 'Position', :with => "6"
+			fill_in 'Keywords', :with => "dave AND the AND fish"
+			choose 'Yes'
+
+			@placement.should_receive(:dretitle=).with("2013 Prospectus")
+			@placement.should_receive(:qmsvalue1=).with("http://www.birmingham.ac.uk/document.aspx")
+			@placement.should_receive(:qmsvalue2=).with("6")
+			@placement.should_receive(:alwaysactive=).with("TRUE")
+			@placement.should_receive(:qmsagentbool=).with("dave AND the AND fish")
+			@placement.should_receive(:update)
 
 			click_button 'Save'
-			within 'table' do
-				page.should have_content("2013 Prospectus")
-			end
+
+			current_path.should eql cardinal_placements_path
 		end
 	end
 
