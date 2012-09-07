@@ -1,8 +1,8 @@
 Xyz::Application.routes.draw do
 
-	resources :cardinal_placements
-
 	root :to => 'welcome#index'
+	resources :cardinal_placements
+  resources :synonyms
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

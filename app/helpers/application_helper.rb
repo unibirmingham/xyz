@@ -1,17 +1,11 @@
 module ApplicationHelper
 
 	def to_boolean(string)	
-		string.downcase == 'true'
+		string.downcase == 'true' unless string.nil?
 	end
 
-	def find_cardinal_placement_path(placement)
-		return	cardinal_placement_path(placement.id) unless placement.id.nil?
-		cardinal_placements_path
+	def selected_nav(user_controller_name)
+  	"selected" if controller_name == user_controller_name
 	end
-
-	def form_tag_for(placement, &block)
-		url = find_cardinal_placement_path(placement)
-		method = placement.id.nil? ? "POST" : "PUT"
-		form_tag(url, :method => method, &block)
-	end
+	
 end

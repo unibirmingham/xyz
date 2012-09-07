@@ -1,0 +1,5 @@
+<%= content_for :context_nav do %>
+	<li><%= link_to 'View All Synonyms', synonyms_path %></li>
+	<li><%= link_to 'Create New Synonym', new_synonym_path %></li>
+<% end %>
+<%= render :template => 'layouts/application' %>

@@ -19,11 +19,23 @@
 		<section id="main">
 		<nav id="main_nav">
 		<ul>
-			<li class="selected">
+			<li class="<%= selected_nav('cardinal_placements') %>">
 			<%= link_to 'Cardinal Placements', cardinal_placements_path %>
 			</li>
-			<li>
+			<li class="<%= selected_nav('promotions') %>">
 			<%= link_to 'Promotions', cardinal_placements_path %>
+			</li>
+			<li class="<%= selected_nav('synonyms') %>">
+			<%= link_to 'Synonyms', synonyms_path %>
+			</li>
+			<li class="<%= selected_nav('blacklists') %>">
+			<%= link_to 'Blacklists', cardinal_placements_path %>
+			</li>
+			<li class="<%= selected_nav('whitelists') %>">
+			<%= link_to 'Whitelists', cardinal_placements_path %>
+			</li>
+			<li class="<%= selected_nav('boost_rules') %>">
+			<%= link_to 'Boost Rules', cardinal_placements_path %>
 			</li>
 		</ul>
 		</nav>

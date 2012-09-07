@@ -1,0 +1,20 @@
+<h2>Synonyms</h2>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th class="edit">Edit</th>
+			<th class="delete">Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @synonyms.each do |synonym| %>
+			<tr>
+				<td><%= synonym.dretitle %></td>
+				<td class="edit"><%= link_to 'edit', edit_synonym_path(synonym.id) %></td>
+				<td class="delete"><%= link_to 'delete', synonym_path(synonym.id), :method => 'delete', :confirm => 'Are you absolutely, positively sure you want to delete?' %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

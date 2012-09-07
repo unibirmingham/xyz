@@ -1,0 +1,11 @@
+<%= form_for(@synonym) do |f| %>
+	<%= f.label :dretitle, 'Title' %><%= f.text_field :dretitle %>
+	<%= f.label :keywords %><%= f.text_field :keywords %>
+	<%= f.label :concept %><%= f.text_field :concept %>
+	<%= f.label :qmsagentbool, 'Matching Expression' %><%= f.text_field :qmsagentbool %>
+
+	<div class="buttons">
+		<%= submit_tag 'Reset', :type => 'reset' %>
+		<%= f.submit %>
+	</div>
+<% end %>

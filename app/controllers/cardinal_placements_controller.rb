@@ -1,7 +1,7 @@
 class CardinalPlacementsController < ApplicationController
 	before_filter :find_placement, :only => [:edit, :update]
 	before_filter :create_placement, :only => [:create, :new]
-	
+
 	def index
 		@placements = CardinalPlacement.all
 	end
@@ -10,12 +10,14 @@ class CardinalPlacementsController < ApplicationController
 	end
 
 	def update
-		update_placement
-		if @placement.update
-			flash[:info] = "#{@placement.dretitle} updated successfully"
+		@placement.update_attributes(params[:cardinal_placement])
+		if @placement.save
+			flash[:info] = "#{@placement.dretitle} successfully updated"
 		else
-			flash[:error] = "Whoops! Something bad happened"
+			flash[:error] = "Whoops! Something bad happened. Speak to Nick"
 		end
+
+		sleep(0.5)
 		redirect_to cardinal_placements_path
 	end
 
@@ -23,14 +25,21 @@ class CardinalPlacementsController < ApplicationController
 	end
 
 	def create
-		update_placement
-		@placement.save
+		@placement.update_attributes(params[:cardinal_placement])
+		if @placement.save
+			flash[:info] = "#{@placement.dretitle} successfully created"
+		else
+			flash[:error] = "Whoops! Something bad happened"
+		end
 
+		sleep(0.5)
 		redirect_to cardinal_placements_path
 	end
 
 	def destroy
 		CardinalPlacement.destroy(params[:id])
+		flash[:info] = "Placement successfully deleted"
+		sleep 1 
 		redirect_to cardinal_placements_path 
 	end
 
