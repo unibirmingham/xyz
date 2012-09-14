@@ -9,6 +9,7 @@ describe 'cardinal placements' do
 			@placement.stub(:title).and_return("2012 Prospectus")
 			@placement.stub(:qmsvalue1).and_return("http://www.birmingham.ac.uk/first_document.aspx")
 			@placement.stub(:id).and_return("12345")
+			@placement.stub(:drereference).and_return("12345")
 			CardinalPlacement.should_receive(:all).any_number_of_times.and_return([@placement])
 		end
 
@@ -36,6 +37,7 @@ describe 'cardinal placements' do
 			@placement.stub(:dretitle).and_return("2012 Prospectus")
 			@placement.stub(:qmsvalue1).and_return("http://www.birmingham.ac.uk/first_document.aspx")
 			@placement.stub(:id).and_return("12345")
+			@placement.stub(:drereference).and_return("12345")
 			@placement.stub(:qmsvalue2).and_return("3")
 			@placement.stub(:alwaysactive).and_return("true")
 			@placement.stub(:qmsagentbool).and_return("dave AND the AND fish")	
@@ -51,7 +53,7 @@ describe 'cardinal placements' do
 				page.should have_checked_field("cardinal_placement_alwaysactive_yes")
 				page.should have_unchecked_field("cardinal_placement_alwaysactive_no")
 				page.should have_field("Position", :type => 'number', :with => "3")
-				page.should have_field("Keywords", :with => "dave AND the AND fish")
+				page.should have_field("Keywords", :text => "dave AND the AND fish")
 			end
 		end
 

@@ -12,7 +12,7 @@
 		<% @synonyms.each do |synonym| %>
 			<tr>
 				<td><%= synonym.dretitle %></td>
-				<td class="edit"><%= link_to 'edit', edit_synonym_path(synonym.id) %></td>
+				<td class="edit"><%= link_to 'edit', edit_synonym_path(synonym.drereference) %></td>
 				<td class="delete"><%= link_to 'delete', synonym_path(synonym.id), :method => 'delete', :confirm => 'Are you absolutely, positively sure you want to delete?' %></td>
 			</tr>
 		<% end %>

@@ -1,9 +1,10 @@
-#DREREFERENCE 695120425336110405
 #DRETITLE <%= @dretitle %>
 #DREDBNAME ACTIVATED
 #DREFIELD QMSTYPE="4"
 #DREFIELD QMSAGENTBOOL="<%= @qmsagentbool %>"
 #DREFIELD KEYWORDS="<%= @keywords %>"
 #DREFIELD CONCEPT="<%= @concept %>"
-#DRECONTENT  <%= @keywords.gsub(/[AND|OR]/, '') %>
+#DRECONTENT
+#<%= @keywords.gsub(/[AND|OR]/, '') %>
 #DREENDDOC
+#DREENDDATA

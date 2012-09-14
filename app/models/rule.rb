@@ -23,6 +23,39 @@ class Rule
 			send("#{name}=", value)			
 		end
 	end
+	
+	def save	
+		if persisted?
+			filename = 	"app/idol_requests/#{self.class.name.tableize}/update.idx.erb"
+			send_post(filename, '/DREREPLACE?&DATABASEMATCH=Activated')
+		else
+			filename = 	"app/idol_requests/#{self.class.name.tableize}/save.idx.erb"
+			send_post(filename, '/DREADDDATA?&DREDBNAME=Activated')
+		end
+	end
+	
+	def self.all
+		url = build_url_for("/action=Query&databasematch=activated&print=all&maxresults=5000&fieldtext=MATCH{#{rule_type}}:QMSTYPE&Text=*")
+		data = query_idol_with(url)
+		synonyms = []
+		data['responsedata'][0]['hit'].each do |hit|
+			synonyms << self.new(hit) 
+		end
+		synonyms	
+	end
+
+	def self.find(drereference)
+		url = build_url_for "/action=Query&databasematch=activated&print=all&maxresults=5000&fieldtext=MATCH{#{rule_type}}:QMSTYPE&MATCHREFERENCE=#{drereference}"
+		data = query_idol_with(url)
+		self.new(data['responsedata'][0]['hit'][0])
+	end
+
+	def self.destroy(id)
+		url = build_url_for "/DREDELETEDOC?docs=#{id}", 10151
+		response = Net::HTTP.get_response(URI.parse(url))
+		response.code == "200"
+	end
+
 	private
 
 	def add_attributes(attributes)

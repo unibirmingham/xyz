@@ -2,7 +2,7 @@
 	<%= f.label :dretitle, 'Title'%><%= f.text_field :dretitle %>
 	<%= f.label :qmsvalue1, 'URL'%><%= f.text_field :qmsvalue1 %>
 	<%= f.label :qmsvalue2, 'Position' %><%= f.number_field :qmsvalue2, :min => 1 %>
-	<%= f.label :qmsagentbool, 'Keywords' %><%= f.text_field :qmsagentbool %>
+	<%= f.label :qmsagentbool, 'Keywords' %><%= f.text_area :qmsagentbool %>
 
 	<fieldset>
 		<legend>Always Active</legend>
@@ -12,7 +12,12 @@
 		</div>
 	</fieldset>
 
+	<% unless @placement.id.nil? %>
+		<%= hidden_field_tag 'drereference', @placement.drereference %>
+	<% end %>
+
 	<div class="buttons">
+		
 		<%= submit_tag 'Reset', :type => 'reset' %>
 		<%= f.submit %>
 	</div>

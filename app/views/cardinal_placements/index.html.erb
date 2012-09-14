@@ -14,7 +14,7 @@
 			<tr>
 				<td><%= placement.title %></td>
 				<td><%= placement.qmsvalue1 %></td>
-				<td class="edit"><%= link_to 'edit', edit_cardinal_placement_path(placement.id) %></td>
+				<td class="edit"><%= link_to 'edit', edit_cardinal_placement_path(placement.drereference) %></td>
 				<td class="delete"><%= link_to 'delete', cardinal_placement_path(placement.id), :method => 'delete', :confirm => 'Are you absolutely, positively sure you want to delete?' %></td>
 			</tr>
 		<% end %>

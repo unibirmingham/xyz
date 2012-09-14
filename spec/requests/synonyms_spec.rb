@@ -8,6 +8,7 @@ describe "Synonyms" do
 			@synonym = stub_model(Synonym)
 			@synonym.stub(:dretitle).and_return('Cakes')
 			@synonym.stub(:id).and_return('12345')
+			@synonym.stub(:drereference).and_return('12345')
 			Synonym.should_receive(:all).and_return([@synonym])
 			
 			visit synonyms_path
@@ -26,6 +27,7 @@ describe "Synonyms" do
 			@synonym = stub_model(Synonym)
 			
 			@synonym.stub(:id).and_return "123"
+			@synonym.stub(:drereference).and_return "123"
 			@synonym.stub(:dretitle).and_return "Fishes"
 			@synonym.stub(:keywords).and_return "cod haddock plaice"
 			@synonym.stub(:concept).and_return "cod haddock plaice"
@@ -34,11 +36,11 @@ describe "Synonyms" do
 			Synonym.should_receive(:find).with("123").and_return(@synonym)
 
 			visit edit_synonym_path @synonym.id
-
+			
 			page.should have_field('Title', :with => 'Fishes')
-			page.should have_field('Keywords', :with => 'cod haddock plaice')
-			page.should have_field('Concept', :with => 'cod haddock plaice')
-			page.should have_field('Matching Expression', :with => 'fish OR sea OR food')
+			page.should have_field('Keywords', :text => 'cod haddock plaice')
+			page.should have_field('Concept', :text => 'cod haddock plaice')
+			page.should have_field('Matching Expression', :text => 'fish OR sea OR food')
 
 
 		end

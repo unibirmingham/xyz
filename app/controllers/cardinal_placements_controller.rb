@@ -1,5 +1,4 @@
 class CardinalPlacementsController < ApplicationController
-	before_filter :find_placement, :only => [:edit, :update]
 	before_filter :create_placement, :only => [:create, :new]
 
 	def index
@@ -7,9 +6,11 @@ class CardinalPlacementsController < ApplicationController
 	end
 
 	def edit
+		@placement = CardinalPlacement.find(params[:id])
 	end
 
 	def update
+		@placement = CardinalPlacement.find(params[:drereference])
 		@placement.update_attributes(params[:cardinal_placement])
 		if @placement.save
 			flash[:info] = "#{@placement.dretitle} successfully updated"
