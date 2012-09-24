@@ -36,7 +36,6 @@ gem 'xml-simple'
 # gem 'capistrano'
 
 # To use debugger
-gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :test, :development do
   gem 'rspec-rails'
@@ -55,5 +54,6 @@ group :development do
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false
   gem 'libnotify'
+	gem 'ruby-debug19', :require => 'ruby-debug'
 end
 

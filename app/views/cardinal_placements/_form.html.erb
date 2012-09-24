@@ -4,20 +4,11 @@
 	<%= f.label :qmsvalue2, 'Position' %><%= f.number_field :qmsvalue2, :min => 1 %>
 	<%= f.label :qmsagentbool, 'Keywords' %><%= f.text_area :qmsagentbool %>
 
-	<fieldset>
-		<legend>Always Active</legend>
-		<div class="radios">
-			<%= f.radio_button  :alwaysactive, 'yes', :checked => to_boolean(@placement.alwaysactive)  %><%= f.label 'alwaysactive_yes', 'Yes' %>
-			<%= f.radio_button  :alwaysactive, 'no', :checked => !to_boolean(@placement.alwaysactive)  %><%= f.label 'alwaysactive_no', 'No' %>
-		</div>
-	</fieldset>
-
 	<% unless @placement.id.nil? %>
 		<%= hidden_field_tag 'drereference', @placement.drereference %>
 	<% end %>
 
 	<div class="buttons">
-		
 		<%= submit_tag 'Reset', :type => 'reset' %>
 		<%= f.submit %>
 	</div>
