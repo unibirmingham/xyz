@@ -54,6 +54,6 @@ group :development do
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false
   gem 'libnotify'
-	gem 'ruby-debug19', :require => 'ruby-debug'
+	gem 'debugger'
 end
 

@@ -50,8 +50,6 @@ describe 'cardinal placements' do
 			within 'form' do
 				page.should have_field("Title", :with => "2012 Prospectus")
 				page.should have_field("URL", :with => "http://www.birmingham.ac.uk/first_document.aspx")
-				page.should have_checked_field("cardinal_placement_alwaysactive_yes")
-				page.should have_unchecked_field("cardinal_placement_alwaysactive_no")
 				page.should have_field("Position", :type => 'number', :with => "3")
 				page.should have_field("Keywords", :text => "dave AND the AND fish")
 			end
@@ -64,7 +62,6 @@ describe 'cardinal placements' do
 			fill_in 'URL', :with => "http://www.birmingham.ac.uk/document.aspx"
 			fill_in 'Position', :with => "6"
 			fill_in 'Keywords', :with => "dave AND the AND fish"
-			choose 'Yes'
 
 			@placement.stub(:dretitle).and_return("2013 Prospectus")
 			@placement.should_receive(:update_attributes)
