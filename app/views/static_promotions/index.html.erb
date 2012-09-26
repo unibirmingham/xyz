@@ -1,0 +1,22 @@
+<h2>Promotions</h2>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type of promotion</th>
+			<th class="edit">Edit</th>
+			<th class="delete">Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @promotions.each do |promotion| %>
+			<tr>
+				<td><%= promotion.dretitle %></td>
+				<td><%= promotion.qmstype == "2" ? "Static" : "Dynamic" %></td>
+				<td class="edit"><%= link_to 'edit', edit_static_promotion_path(promotion.drereference) %></td>
+				<td class="delete"><%= link_to 'delete', static_promotion_path(promotion.id), :method => 'delete', :confirm => 'Are you absolutely, positively sure you want to delete?' %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
